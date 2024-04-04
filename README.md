@@ -17,28 +17,7 @@ Features
    - Axios
    - Context API
    - HTML/CSS
-
-## Folder Structure
-
-├── src/
-│   ├── components/
-│   │   ├── About.js
-│   │   ├── Cart.js
-│   │   ├── CartDetails.js
-│   │   ├── Home.js
-│   │   ├── Layout.js
-│   │   ├── Login.js
-│   │   ├── Payment.js
-│   │   ├── Product.js
-│   │   ├── Products.js
-│   ├── App.css
-│   ├── App.js
-│   ├── index.js
-├── public/
-│   ├── index.html
-├── package.json
-├── README.md
-
+     
 ## Screenshots
 ![e-commerce screenshot 1](https://github.com/Mahdii-Kariimiian/E-commerce-react/assets/134393975/2dbfbca8-e778-4b31-aad0-046d29bfea8d)
 
