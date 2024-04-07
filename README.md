@@ -1,8 +1,27 @@
-# React + Vite
+# React E-Commerce App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## This repository contains a React-based e-commerce application where users can browse through various products, add them to the cart, and proceed to checkout. The app utilizes React Router for navigation, Axios for API requests, and context for managing application-wide state.
+Features
 
-Currently, two official plugins are available:
+   - Browse through a list of products fetched from a mock API.
+   - Filter products by categories.
+   - Search for products using a search bar.
+   - Add products to the cart.
+   - Adjust quantities of products in the cart.
+   - Responsive layout for seamless user experience across devices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies Used
+
+   - React
+   - React Router
+   - Axios
+   - Context API
+   - HTML/CSS
+     
+## Screenshots
+![e-commerce screenshot 1](https://github.com/Mahdii-Kariimiian/E-commerce-react/assets/134393975/2dbfbca8-e778-4b31-aad0-046d29bfea8d)
+
+![e-commerce screenshot](https://github.com/Mahdii-Kariimiian/E-commerce-react/assets/134393975/284139f6-98a9-42b1-9971-095263f0ead3)
+
+## Links
+ Netlify :  https://codecart.netlify.app/
