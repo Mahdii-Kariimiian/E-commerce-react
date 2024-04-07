@@ -5,9 +5,16 @@ import { Link } from "react-router-dom";
 import { ImStarFull } from "react-icons/im";
 
 function Products() {
-    const { products, searchTerm, addToCart, setAddToCart, setQuantity , quantity , darkMode } =
-        useContext(productContext);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const {
+        products,
+        searchTerm,
+        addToCart,
+        setAddToCart,
+        setQuantity,
+        quantity,
+        darkMode,
+    } = useContext(productContext);
+    const [searchParams] = useSearchParams();
     const categoryFilter = searchParams.get("category") || "all";
 
     const searchedProducts = products.filter((product) => {
@@ -49,42 +56,44 @@ function Products() {
     }
 
     function handleAddToCart(e, id, product) {
-    e.preventDefault();
-    e.stopPropagation();
-    const productToAdd = products.find((prod) => prod.id === id);
+        e.preventDefault();
+        e.stopPropagation();
+        const productToAdd = products.find((prod) => prod.id === id);
 
-    if (productToAdd) {
-        const existingCartItemIndex = addToCart.findIndex(
-            (item) => item.id === id
-        );
+        if (productToAdd) {
+            const existingCartItemIndex = addToCart.findIndex(
+                (item) => item.id === id
+            );
 
-        if (existingCartItemIndex === -1) {
-            // If the product is not already in the cart, add it with quantity 1
-            setAddToCart([
-                ...addToCart,
-                {
-                    id: productToAdd.id,
-                    quantity: 1,
-                    product,
-                },
-            ]);
-        } else {
-            const updatedCart = [...addToCart];
-            updatedCart[existingCartItemIndex].quantity++;
-            setAddToCart(updatedCart);
+            if (existingCartItemIndex === -1) {
+                // If the product is not already in the cart, add it with quantity 1
+                setAddToCart([
+                    ...addToCart,
+                    {
+                        id: productToAdd.id,
+                        quantity: 1,
+                        product,
+                    },
+                ]);
+            } else {
+                const updatedCart = [...addToCart];
+                updatedCart[existingCartItemIndex].quantity++;
+                setAddToCart(updatedCart);
+            }
         }
     }
-}
 
     return (
-        <div className= {darkMode ? "bg-darkBase text-neutral grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-5" : "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-5"}>
+        <div className="bg-background text-text grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-5">
             {showedProducts.map((product) => {
                 return (
                     <Link key={product.id} to={`/products/${product.id}`}>
-                        <div className= {darkMode ? " bg-white text-DarkNeutral max-w-[400px] sm:max-w-full rounded-md p-4 m-2 flex flex-col items-start gap-6" : "max-w-[400px] sm:max-w-full rounded-md p-4 m-2 flex flex-col items-start gap-6"}>
-                            <div className="h-[300px] overflow-hidden rounded-md flex items-center justify-center">
+                        <div
+                            className="bg-background shadow text-text max-w-[400px] sm:max-w-full rounded-md p-4 m-2 flex flex-col items-start gap-6"
+                        >
+                            <div className="bg-white h-[300px] overflow-hidden rounded-md flex ">
                                 <img
-                                    className="object-contain max-h-full max-w-full"
+                                    className="object-contain w-full object-center"
                                     src={product.image}
                                     alt={product.title}
                                 />
@@ -96,7 +105,7 @@ function Products() {
                                 {product.description}
                             </p>
                             <div className="text-neutral flex flex-col gap-3 items-start ">
-                                <div className="whitespace-nowrap text-black text-sm">
+                                <div className="whitespace-nowrap text-text text-sm">
                                     <div className="flex gap-2">
                                         <p className="text-lg">
                                             <ImStarFull />
@@ -117,7 +126,7 @@ function Products() {
                                                 product
                                             )
                                         }
-                                        className="bg-secondary py-2 px-3 rounded-md whitespace-nowrap"
+                                        className="button"
                                     >
                                         Add to Cart
                                     </button>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState, createContext, useMemo } from "react";
 import "./App.css";
 import axios from "axios";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import Layout from "./components/Layout";
 import Home from "./components/Home";
 import Products from "./components/Products";
@@ -11,6 +12,8 @@ import CartDetails from "./components/CartDetails";
 import About from "./components/About";
 import Login from "./components/Login";
 import Payment from "./components/Payment";
+import SignUp from "./components/SignUp";
+
 export const productContext = createContext();
 
 function App() {
@@ -19,9 +22,7 @@ function App() {
     const [searchTerm, setSearchTerm] = useState("");
     const [addToCart, setAddToCart] = useState([]);
     const [quantity, setQuantity] = useState(1);
-    const [darkMode , setDarkMode] = useState(false);
-
-    const CartItems = [];
+    const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
         async function fetchProducts() {
@@ -50,23 +51,26 @@ function App() {
         }
     });
 
-    const contextValue = {
-        products: productsArray,
-        categories: categories,
-        searchTerm: searchTerm,
-        setSearchTerm: setSearchTerm,
-        addToCart: addToCart,
-        setAddToCart: setAddToCart,
-        quantity: quantity,
-        setQuantity: setQuantity,
-        CartItems: CartItems,
-        darkMode: darkMode,
-        setDarkMode: setDarkMode,
-    };
+    const contextValue = useMemo(() => {
+        return {
+            products: productsArray,
+            categories: categories,
+            searchTerm: searchTerm,
+            setSearchTerm: setSearchTerm,
+            addToCart: addToCart,
+            setAddToCart: setAddToCart,
+            quantity: quantity,
+            setQuantity: setQuantity,
+            darkMode: darkMode,
+            setDarkMode: setDarkMode,
+        };
+    }, [productsArray, categories, searchTerm, addToCart, quantity, darkMode]);
+
+    console.log("rendered")
 
     return (
         <productContext.Provider value={contextValue}>
-            <div className="bg-neutral">
+            <div className={darkMode ? "dark font-poppins bg-background ": "light font-poppins bg-background"}>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Layout />}>
@@ -75,6 +79,7 @@ function App() {
                             <Route path="products/:id" element={<Product />} />
                             <Route path="about" element={<About />} />
                             <Route path="login" element={<Login />} />
+                            <Route path="signup" element={<SignUp />} />
                             <Route path="cart" element={<Cart />}>
                                 <Route element={<CartDetails />} />
                                 <Route element={<Payment />} />

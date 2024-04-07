@@ -1,7 +1,7 @@
-import React from "react";
+import React , { useContext } from "react";
 import { productContext } from "../App";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CiSquareRemove } from "react-icons/ci";
 
 function CartDetails() {
     const { addToCart, setAddToCart } = useContext(productContext);
@@ -37,14 +37,14 @@ function CartDetails() {
                 return (
                     <div
                         key={product.product.id}
-                        className="sm:max-w-full rounded-md p-4 m-2 flex flex-col items-start gap-6"
+                        className="sm:max-w-[280px] max-w-[350px] rounded-md p-4 m-2 flex flex-col items-start gap-6"
                     >
                         <div
                             key={product.product.id}
-                            className="h-[300px] overflow-hidden rounded-md flex items-center justify-center"
+                            className="bg-white h-[300px] overflow-hidden rounded-md flex "
                         >
                             <img
-                                className="object-contain max-h-full max-w-full"
+                                className="object-contain w-full object-center"
                                 src={product.product.image}
                                 alt={product.product.title}
                             />
@@ -52,35 +52,37 @@ function CartDetails() {
                         <h1 className="text-xl line-clamp-1">
                             {product.product.title}
                         </h1>
-                        <div className="text-neutral flex flex-col gap-3 items-start ">
-                            <div className="flex gap-2 items-center">
+                        <div className="text-neutral flex flex-col gap-3 items-start">
+                            <div className=" space-y-3 sm:flex gap-2 items-center justify-center">
                                 <p className=" w-[85px]  text-center whitespace-nowrap bg-primary py-2 px-3 rounded-md ">
                                     {product.product.price * product.quantity} $
                                 </p>
-                                <button
-                                    onClick={() => {
-                                        handleDecrement(product.id);
-                                    }}
-                                    className="bg-secondary py-2 px-3 rounded-md whitespace-nowrap"
-                                >
-                                    -
-                                </button>
-                                <div className="border-2 border-secondary py-2 px-3 rounded-md text-secondary">
-                                    {product.quantity}
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => {
+                                            handleDecrement(product.id);
+                                        }}
+                                        className="bg-secondary py-2 px-3 rounded-md whitespace-nowrap"
+                                    >
+                                        -
+                                    </button>
+                                    <div className="border-2 border-secondary py-2 px-3 rounded-md text-secondary">
+                                        {product.quantity}
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            handleIncrement(product.id);
+                                        }}
+                                        className="bg-secondary py-2 px-3 rounded-md whitespace-nowrap"
+                                    >
+                                        +
+                                    </button>
                                 </div>
                                 <button
-                                    onClick={() => {
-                                        handleIncrement(product.id);
-                                    }}
-                                    className="bg-secondary py-2 px-3 rounded-md whitespace-nowrap"
-                                >
-                                    +
-                                </button>
-                                <button
-                                    className="bg-red-500 py-2 px-3 rounded-md whitespace-nowrap"
+                                    className="bg-red-500 text-xl py-2 px-3 rounded-md whitespace-nowrap"
                                     onClick={() => handleRemove(product.id)}
                                 >
-                                    Remove
+                                    <CiSquareRemove />
                                 </button>
                             </div>
                         </div>
@@ -88,15 +90,15 @@ function CartDetails() {
                 );
             })
         ) : (
-            <div className="flex items-center justify-center gap-10">
-                <h1 className="text-3xl m-5 text-secondary">
-                    {" "}
-                    No Products in Cart{" "}
+            <div className="flex flex-col w-full items-center justify-center h-[80vh] gap-7">
+                <h1 className="text-3xl m-5 text-text">
+                    No Products in Cart
                 </h1>
-                <button className="text-white text-center whitespace-nowrap bg-primary py-2 px-3 rounded-md">
-                    {" "}
-                    <Link to="/products">Back </Link>{" "}
-                </button>
+                <Link to="/products">
+                    <button className="text-text text-center whitespace-nowrap bg-primary py-2 px-5 text-lg rounded-md">
+                        Back
+                    </button>
+                </Link>
             </div>
         );
     return renderProducts;

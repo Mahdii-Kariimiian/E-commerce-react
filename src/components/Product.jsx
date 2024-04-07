@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useContext } from "react";
 import { productContext } from "../App";
 import { ImStarFull } from "react-icons/im";
 
 function Product() {
-    const { products , addToCart , setAddToCart , darkMode } = useContext(productContext);
-
+    // Get the product context from the parent component
+    const { products, 
+        addToCart, 
+        setAddToCart, 
+        darkMode 
+        } =
+        useContext(productContext);
+    
+    // Get product id from URL params
     const params = useParams();
 
+    // Find the product that matches the id in the URL params
     const clickedProduct = products.find(
         (product) => product.id === parseInt(params.id)
     );
 
+    // Add the product to the cart
     function handleAddToCart(e, id, product) {
         e.preventDefault();
         e.stopPropagation();
@@ -69,7 +77,11 @@ function Product() {
                         </p>
                         <button
                             onClick={(e) =>
-                                handleAddToCart(e, clickedProduct.id, clickedProduct)
+                                handleAddToCart(
+                                    e,
+                                    clickedProduct.id,
+                                    clickedProduct
+                                )
                             }
                             className="bg-secondary py-2 px-3 rounded-md whitespace-nowrap"
                         >

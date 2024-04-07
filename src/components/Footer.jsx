@@ -8,11 +8,7 @@ function Footer() {
 
     return (
         <div
-            className={
-                darkMode
-                    ? " text-neutral bg-darkPrimary text-center py-7 px-7"
-                    : " text-neutral bg-primary text-center py-7 px-7"
-            }
+            className="text-text bg-primary text-center py-7 px-7"
         >
             <h1 className="mb-4">Developed by : Mahdi Karimian</h1>
             <div className="flex gap-4 justify-center items-center">
