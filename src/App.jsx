@@ -25,17 +25,20 @@ function App() {
     const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
+        console.log("useEffect render");
         async function fetchProducts() {
             try {
+                // Fetch Data from Fakestoreapi
                 const response = await axios.get(
                     "https://fakestoreapi.com/products"
                 );
                 setProductsArray(response.data);
 
-                const uniqueCategories = new Set(
-                    response.data.map((product) => product.category)
+                // Export Categories
+                const uniqueCategories = Array.from(
+                    new Set(response.data.map((product) => product.category))
                 );
-                setCategories([...uniqueCategories]);
+                setCategories(uniqueCategories);
             } catch (error) {
                 console.log(error);
                 throw new Error("Error fetching products");
@@ -45,13 +48,14 @@ function App() {
         fetchProducts();
     }, []);
 
-    categories.filter((category) => {
-        if (!categories.includes(category)) {
-            return category;
-        }
-    });
+    // categories.filter((category) => {
+    //     if (!categories.includes(category)) {
+    //         return category;
+    //     }
+    // });
 
     const contextValue = useMemo(() => {
+        console.log("useMemo render");
         return {
             products: productsArray,
             categories: categories,
@@ -66,11 +70,26 @@ function App() {
         };
     }, [productsArray, categories, searchTerm, addToCart, quantity, darkMode]);
 
-    console.log("rendered")
+    useEffect(() => {
+        const savedMode = localStorage.getItem("darkMode");
+        if (savedMode) {
+            setDarkMode(savedMode === "true");
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("darkMode", darkMode);
+    }, [darkMode]);
 
     return (
         <productContext.Provider value={contextValue}>
-            <div className={darkMode ? "dark font-poppins bg-background ": "light font-poppins bg-background"}>
+            <div
+                className={
+                    darkMode
+                        ? "dark font-poppins bg-background "
+                        : "light font-poppins bg-background"
+                }
+            >
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Layout />}>
